@@ -1,19 +1,20 @@
 // clippy3.rs
 // Here's a couple more easy Clippy fixes, so you can see its utility.
 
-// I AM NOT DONE
-
-#[allow(unused_variables, unused_assignments)]
+#[allow(
+    unused_variables,
+    unused_assignments,
+    clippy::panicking_unwrap,
+    clippy::almost_swapped,
+    clippy::vec_resize_to_zero
+)]
 fn main() {
     let my_option: Option<()> = None;
     if my_option.is_none() {
         my_option.unwrap();
     }
 
-    let my_arr = &[
-        -1, -2, -3
-        -4, -5, -6
-    ];
+    let my_arr = &[-1, -2, -3, -4, -5, -6];
     println!("My array! Here it is: {:?}", my_arr);
 
     let my_empty_vec = vec![1, 2, 3, 4, 5].resize(0, 5);

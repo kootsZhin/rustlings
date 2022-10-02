@@ -35,10 +35,71 @@ impl Default for Person {
 // If while parsing the age, something goes wrong, then return the default of Person
 // Otherwise, then return an instantiated Person object with the results
 
-// I AM NOT DONE
-
 impl From<&str> for Person {
     fn from(s: &str) -> Person {
+        // if s.len() == 0 {
+        //     return Person::default();
+        // } else {
+        //     let mut split = s.split(",");
+        //     let name = split.next();
+        //     if name == None {
+        //         return Person::default();
+        //     }
+        //     let name = name.unwrap();
+        //     if name.len() == 0 {
+        //         return Person::default();
+        //     } else {
+        //         let age = split.next();
+        //         if age == None {
+        //             return Person::default();
+        //         }
+        //         let age = age.unwrap();
+        //         let age = age.parse::<usize>();
+        //         if split.next() != None {
+        //             return Person::default();
+        //         }
+        //         match age {
+        //             Ok(age) => Person {
+        //                 name: name.to_string(),
+        //                 age: age,
+        //             },
+        //             Err(_) => Person::default(),
+        //         }
+        //     }
+        // }
+        match s.len() {
+            0 => Person::default(),
+            _ => {
+                if !s.contains(",") {
+                    return Person::default();
+                }
+                let mut split_res = s.split(",").collect::<Vec<&str>>();
+                if split_res.len() != 2 {
+                    return Person::default();
+                }
+                let name = split_res[0];
+                if name == "" {
+                    return Person::default();
+                } else {
+                    // match split_res[1].parse::<usize>(){
+                    //     Ok(age) => {
+                    //         Person{
+                    //             name: name.to_string(),
+                    //             age
+                    //         }
+                    //     },
+                    //     Err(_e) => Person::default()
+                    // }
+                    split_res[1].parse::<usize>().map_or_else(
+                        |_e| Person::default(),
+                        |age| Person {
+                            name: name.to_string(),
+                            age,
+                        },
+                    )
+                }
+            }
+        }
     }
 }
 
